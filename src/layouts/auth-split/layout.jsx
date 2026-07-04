@@ -1,0 +1,131 @@
+import { merge } from 'es-toolkit';
+
+import Alert from '@mui/material/Alert';
+
+import { paths } from 'src/routes/paths';
+
+import { CONFIG } from 'src/global-config';
+
+import { Logo } from 'src/components/logo';
+
+import { AuthSplitSection } from './section';
+import { AuthSplitContent } from './content';
+import { Footer } from '../components/site-footer';
+import { MainSection, LayoutSection, HeaderSection } from '../core';
+
+// ----------------------------------------------------------------------
+
+export function AuthSplitLayout({ sx, cssVars, children, slotProps, layoutQuery = 'md' }) {
+  const renderHeader = () => {
+    const headerSlotProps = {
+      container: {
+        maxWidth: false,
+        sx: {
+          width: 1,
+          maxWidth: 'none !important',
+          mx: 0,
+          px: { xs: 2, sm: 3 },
+        },
+      },
+    };
+
+    const headerSlots = {
+      topArea: (
+        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+          This is an info Alert.
+        </Alert>
+      ),
+      leftArea: (
+        <Logo
+          sx={{
+            width: 28,
+            height: 28,
+          }}
+        />
+      ),
+      rightArea: null,
+    };
+
+    return (
+      <HeaderSection
+        disableElevation
+        layoutQuery={layoutQuery}
+        {...slotProps?.header}
+        slots={{ ...headerSlots, ...slotProps?.header?.slots }}
+        slotProps={merge(headerSlotProps, slotProps?.header?.slotProps ?? {})}
+        sx={[
+          { position: { [layoutQuery]: 'fixed' } },
+          ...(Array.isArray(slotProps?.header?.sx) ? slotProps.header.sx : [slotProps?.header?.sx]),
+        ]}
+      />
+    );
+  };
+
+  const renderFooter = () => <Footer layoutQuery={layoutQuery} sx={slotProps?.footer?.sx} />;
+
+  const renderMain = () => (
+    <MainSection
+      {...slotProps?.main}
+      sx={[
+        (theme) => ({ [theme.breakpoints.up(layoutQuery)]: { flexDirection: 'row' } }),
+        ...(Array.isArray(slotProps?.main?.sx) ? slotProps.main.sx : [slotProps?.main?.sx]),
+      ]}
+    >
+      <AuthSplitSection
+        layoutQuery={layoutQuery}
+        method={CONFIG.auth.method}
+        {...slotProps?.section}
+        methods={[
+          {
+            label: 'Jwt',
+            path: paths.auth.jwt.signIn,
+            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-jwt.svg`,
+          },
+          {
+            label: 'Firebase',
+            path: paths.auth.firebase.signIn,
+            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-firebase.svg`,
+          },
+          {
+            label: 'Amplify',
+            path: paths.auth.amplify.signIn,
+            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-amplify.svg`,
+          },
+          {
+            label: 'Auth0',
+            path: paths.auth.auth0.signIn,
+            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-auth0.svg`,
+          },
+          {
+            label: 'Supabase',
+            path: paths.auth.supabase.signIn,
+            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-supabase.svg`,
+          },
+        ]}
+      />
+      <AuthSplitContent layoutQuery={layoutQuery} {...slotProps?.content}>
+        {children}
+      </AuthSplitContent>
+    </MainSection>
+  );
+
+  return (
+    <LayoutSection
+      /** **************************************
+       * @Header
+       *************************************** */
+      headerSection={renderHeader()}
+      /** **************************************
+       * @Footer
+       *************************************** */
+      footerSection={renderFooter()}
+      /** **************************************
+       * @Styles
+       *************************************** */
+      cssVars={{ '--layout-auth-content-width': '420px', ...cssVars }}
+      sx={sx}
+    >
+      {renderMain()}
+    </LayoutSection>
+  );
+}

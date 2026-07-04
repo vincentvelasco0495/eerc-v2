@@ -1,0 +1,101 @@
+import { alpha } from '@mui/material/styles';
+
+export const styles = {
+  root: {
+    gap: 2.5,
+    py: 0.5,
+  },
+  fieldLabel: {
+    fontSize: 13,
+    fontWeight: 600,
+    color: 'text.primary',
+    mb: 0.75,
+  },
+  dropzone: (theme) => ({
+    border: '2px dashed',
+    borderColor: alpha(theme.palette.grey[500], 0.45),
+    borderRadius: 2,
+    bgcolor: alpha(theme.palette.grey[500], 0.04),
+    py: 4,
+    px: 2,
+    textAlign: 'center',
+    cursor: 'pointer',
+    transition: theme.transitions.create(['border-color', 'background-color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
+    '&:hover': {
+      borderColor: alpha(theme.palette.grey[600], 0.55),
+      bgcolor: alpha(theme.palette.grey[500], 0.07),
+    },
+  }),
+  dropzoneActive: (theme) => ({
+    borderColor: theme.palette.primary.main,
+    bgcolor: alpha(theme.palette.primary.main, 0.06),
+  }),
+  previewWrap: {
+    position: 'relative',
+    width: '100%',
+    borderRadius: 2,
+    overflow: 'hidden',
+    bgcolor: 'grey.900',
+    minHeight: 160,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  posterPreview: {
+    display: 'block',
+    width: '100%',
+    maxHeight: 240,
+    objectFit: 'contain',
+    bgcolor: alpha('#000000', 0.04),
+  },
+  videoPreview: {
+    display: 'block',
+    width: '100%',
+    maxHeight: 280,
+    objectFit: 'contain',
+    bgcolor: 'common.black',
+  },
+  uploadingOverlay: (theme) => ({
+    position: 'absolute',
+    inset: 0,
+    bgcolor: alpha(theme.palette.common.black, 0.35),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2,
+  }),
+  hint: {
+    mt: 1.5,
+    mb: 2,
+    color: 'text.secondary',
+    fontSize: 14,
+    maxWidth: 400,
+    mx: 'auto',
+    lineHeight: 1.5,
+  },
+  actionButton: {
+    px: 3,
+    py: 1,
+    fontWeight: 600,
+    textTransform: 'none',
+    borderRadius: 1.5,
+  },
+  actionRow: {
+    flexWrap: 'wrap',
+    gap: 1,
+    justifyContent: 'center',
+    mt: 0.5,
+  },
+  removeLink: {
+    fontWeight: 600,
+    textTransform: 'none',
+    fontSize: 13,
+  },
+  row: {
+    flexDirection: { xs: 'column', sm: 'row' },
+    gap: 2,
+    alignItems: { xs: 'stretch', sm: 'flex-start' },
+  },
+};
