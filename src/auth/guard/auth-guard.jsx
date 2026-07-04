@@ -25,6 +25,11 @@ function normalizeGuardPath(pathname) {
   return withSlash.replace(/\/$/, '') || '/';
 }
 
+function createRedirectPath(signInPath, returnToPath) {
+  const queryString = new URLSearchParams({ returnTo: returnToPath }).toString();
+  return `${signInPath}?${queryString}`;
+}
+
 export function AuthGuard({ children }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -38,11 +43,6 @@ export function AuthGuard({ children }) {
     /^\/course-details\/[^/]+(\/.*)?$/.test(pathname ?? '') ||
     /^\/program-course-detail(\/.*)?$/.test(pathname ?? '');
 
-  const createRedirectPath = (currentPath) => {
-    const queryString = new URLSearchParams({ returnTo: pathname }).toString();
-    return `${currentPath}?${queryString}`;
-  };
-
   useEffect(() => {
     if (loading) {
       return;
@@ -54,7 +54,7 @@ export function AuthGuard({ children }) {
     }
 
     if (!authenticated) {
-      router.replace(createRedirectPath(getAuthSignInPath()));
+      router.replace(createRedirectPath(getAuthSignInPath(), pathname));
       setIsChecking(false);
       return;
     }

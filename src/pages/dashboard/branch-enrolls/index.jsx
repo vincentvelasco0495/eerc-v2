@@ -17,11 +17,8 @@ import { useLmsActions, useLmsBranchEnrollsPaginated } from 'src/hooks/use-lms';
 
 import { CONFIG } from 'src/global-config';
 import { getLmsAxiosErrorMessage } from 'src/lib/lms-instructor-api';
+import { normalizeBranchEnrollPage, normalizeBranchEnrollPerPage } from 'src/services/branchEnrollService';
 import { InstructorWorkspaceShell } from 'src/features/instructor-profile/components/instructor-workspace-shell';
-import {
-  normalizeBranchEnrollPage,
-  normalizeBranchEnrollPerPage,
-} from 'src/services/branchEnrollService';
 
 import { toast } from 'src/components/snackbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';

@@ -21,18 +21,15 @@ import { toast } from 'src/components/snackbar';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { StepExamPayment } from './components/steps/step-exam-payment';
-import { StepReviewSubmit } from './components/steps/step-review-submit';
 import { useEnrollmentFormOptions } from './use-enrollment-form-options';
+import { StepReviewSubmit } from './components/steps/step-review-submit';
 import { EnrollmentStepErrors } from './components/enrollment-step-errors';
 import { StepPackageConsent } from './components/steps/step-package-consent';
 import { StepEnrollmentSetup } from './components/steps/step-enrollment-setup';
+import { enrollmentWizardSchema, enrollmentWizardDefaultValues } from './schema';
 import { EnrollmentWizardProgress } from './components/enrollment-wizard-progress';
 import { StepDocumentsDiscounts } from './components/steps/step-documents-discounts';
 import { StepPersonalInformation } from './components/steps/step-personal-information';
-import {
-  enrollmentWizardSchema,
-  enrollmentWizardDefaultValues,
-} from './schema';
 import { STEP_FIELD_GROUPS, findFirstErrorStep, getFirstErrorMessage, ENROLLMENT_WIZARD_STEPS } from './constants';
 import {
   findOptionLabel,

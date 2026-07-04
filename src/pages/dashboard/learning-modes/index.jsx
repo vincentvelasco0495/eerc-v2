@@ -17,11 +17,8 @@ import { useLmsActions, useLmsLearningModesPaginated } from 'src/hooks/use-lms';
 
 import { CONFIG } from 'src/global-config';
 import { getLmsAxiosErrorMessage } from 'src/lib/lms-instructor-api';
+import { normalizeLearningModePage, normalizeLearningModePerPage } from 'src/services/learningModeService';
 import { InstructorWorkspaceShell } from 'src/features/instructor-profile/components/instructor-workspace-shell';
-import {
-  normalizeLearningModePage,
-  normalizeLearningModePerPage,
-} from 'src/services/learningModeService';
 
 import { toast } from 'src/components/snackbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
