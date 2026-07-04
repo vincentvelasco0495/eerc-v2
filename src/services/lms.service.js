@@ -1413,18 +1413,18 @@ export async function mockResponseForKey(key) {
     if (groupByLearner) {
       const byLearner = new Map();
       list.forEach((row) => {
-        const key = `${row.userEmail ?? ''}|${row.userName ?? ''}`;
-        if (!byLearner.has(key)) {
-          byLearner.set(key, []);
+        const learnerKey = `${row.userEmail ?? ''}|${row.userName ?? ''}`;
+        if (!byLearner.has(learnerKey)) {
+          byLearner.set(learnerKey, []);
         }
-        byLearner.get(key).push(row);
+        byLearner.get(learnerKey).push(row);
       });
 
       list = [...byLearner.values()].map((items) => {
         const sorted = [...items].sort((a, b) => String(b.submittedAt ?? '').localeCompare(String(a.submittedAt ?? '')));
         const primary = sorted[0];
-        const programs = [...new Set(sorted.map((item) => item.programTitle).filter(Boolean))];
-        const courses = [...new Set(sorted.map((item) => item.courseTitle).filter(Boolean))];
+        const programTitles = [...new Set(sorted.map((item) => item.programTitle).filter(Boolean))];
+        const courseTitles = [...new Set(sorted.map((item) => item.courseTitle).filter(Boolean))];
         const hasProgramWide = sorted.some((item) => !item.courseId);
         const statuses = [...new Set(sorted.map((item) => item.status))];
         const statusSummary = statuses.map((status) => ({
@@ -1433,10 +1433,10 @@ export async function mockResponseForKey(key) {
         }));
 
         let courseTitle = '—';
-        if (courses.length > 0 && hasProgramWide) {
-          courseTitle = `${courses.join(', ')}, All courses`;
-        } else if (courses.length > 0) {
-          courseTitle = courses.join(', ');
+        if (courseTitles.length > 0 && hasProgramWide) {
+          courseTitle = `${courseTitles.join(', ')}, All courses`;
+        } else if (courseTitles.length > 0) {
+          courseTitle = courseTitles.join(', ');
         } else if (hasProgramWide) {
           courseTitle = 'All courses';
         }
@@ -1447,7 +1447,7 @@ export async function mockResponseForKey(key) {
           userEmail: primary.userEmail ?? '',
           phoneNumber: primary.phoneNumber ?? '',
           schoolHeld: primary.schoolHeld ?? '',
-          programTitle: programs.join(', '),
+          programTitle: programTitles.join(', '),
           courseTitle,
           submittedAt: primary.submittedAt ?? '',
           status: statuses.length === 1 ? statuses[0] : 'mixed',
