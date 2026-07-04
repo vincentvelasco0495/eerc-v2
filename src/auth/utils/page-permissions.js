@@ -124,14 +124,6 @@ function ruleMatches(rule, pathname, queryParams) {
   return path === rulePath;
 }
 
-function pathGrantedByRuleSet(rules, pathname, queryParams = {}) {
-  if (!Array.isArray(rules) || rules.length === 0) {
-    return false;
-  }
-
-  return rules.some((rule) => ruleMatches(rule, pathname, queryParams));
-}
-
 function ruleQueryParams(rule) {
   if (!rule?.query || typeof rule.query !== 'object') {
     return {};

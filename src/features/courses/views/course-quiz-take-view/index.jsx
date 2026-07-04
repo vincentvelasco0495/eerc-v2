@@ -508,7 +508,7 @@ export function CourseQuizTakeView() {
       })
     );
     hydrateKeyRef.current = versionKey;
-  }, [quizId, courseLookup, apiQuestions, quizMeta, attemptResetToken]);
+  }, [quizId, courseLookup, apiQuestions, quizMeta, attemptResetToken, displayQuestions.length]);
 
   useEffect(() => {
     if (!quizId || !courseLookup || apiQuestions.length === 0) {

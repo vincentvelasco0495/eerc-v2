@@ -39,7 +39,7 @@ export function useEnrollmentFormOptions(programId = '') {
               params: programId ? { programId } : undefined,
             });
             payload = response.data?.data ?? EMPTY_OPTIONS;
-          } catch (apiError) {
+          } catch {
             if (controller.signal.aborted || !active) {
               return;
             }
